@@ -22,6 +22,7 @@ public class UserModel {
     private String nombre_usuario;
     @Column
     private String clave_dinamica;
+    @Column
 
     public String getId_cliente() {
         return id_cliente;

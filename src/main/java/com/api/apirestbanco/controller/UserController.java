@@ -35,6 +35,21 @@ public class UserController {
         }
     }
 
+
+    @PostMapping("/validarTrabajadorClave")
+    public ResponseEntity<String> validarTrabajoClave(@RequestBody UserRequest request){
+        String nombreUsuario= request.getNombreUsuario();
+        String claveCuenta= request.getClaveCuenta();
+
+        String esValido= userService.validarTrabajadorClave(nombreUsuario, claveCuenta);
+
+        if (esValido.equals("cajero")){
+            return ResponseEntity.ok("Valido");
+        }else{
+            return ResponseEntity.status(401).body("No es valido");
+        }
+    }
+
     @PostMapping("/useraccount")
     public List<UserAccount> validarUsuarioCuenta(@RequestBody UserName request){
         String nombreUsuario= request.getNombreUsuario();
@@ -61,6 +76,26 @@ public class UserController {
             return ResponseEntity.ok("Valido");
         }else{
             return ResponseEntity.status(401).body("No es valido");
+        }
+    }
+
+    @PostMapping("/crearcliente")
+    public ResponseEntity<String> crearCliente(@RequestBody CreateClient request){
+        String cedulaClientes= request.getCedulaCliente();
+        String nombresCliente= request.getNombresCliente();
+        String apellidosCliente = request.getApellidosCliente();
+        String celularCliente = request.getCelularCliente();
+        String direccionCliente = request.getDireccionCliente();
+        String nombreUsuario= request.getNombreUsuario();
+        String claveCliente = request.getClaveCliente();
+
+        boolean esValido = userService.crearCliente(cedulaClientes,nombresCliente, apellidosCliente, celularCliente, direccionCliente, nombreUsuario, claveCliente);
+
+        if(esValido){
+            return ResponseEntity.ok("Agregado");
+        }
+        else{
+            return ResponseEntity.status(401).body("No ha sido agregado");
         }
     }
 }

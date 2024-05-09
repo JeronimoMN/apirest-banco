@@ -34,6 +34,16 @@ public class UserService {
         return (Boolean) query.getSingleResult();
     }
 
+
+    public String validarTrabajadorClave(String nombreUsuario, String claveCuenta){
+        Query query = entityManager.createNativeQuery("SELECT validar_trabajador_clave(:nombreUsuario, :claveCuenta)", String.class);
+        query.setParameter("nombreUsuario", nombreUsuario);
+        query.setParameter("claveCuenta", claveCuenta);
+        return (String) query.getSingleResult();
+    }
+
+
+
     public List<UserAccount> getUserAccounts(String nombreUsuario){
         Query query = entityManager.createNativeQuery("SELECT * FROM obtener_cuentas_saldo(:nombreUsuario)");
         query.setParameter("nombreUsuario", nombreUsuario);
@@ -54,6 +64,19 @@ public class UserService {
         query.setParameter("cuenta", cuenta);
         query.setParameter("cuentaDestino", cuentaDestino);
         query.setParameter("monto", monto);
+        return (Boolean) query.getSingleResult();
+    }
+
+    public boolean crearCliente (String cedulaCliente, String nombreCliente, String apellidoCliente, String celularCliente, String direccionCliente, String nombreUsuario, String claveCuenta) {
+        Query query = entityManager.createNativeQuery("SELECT ingresar_cliente(:cedulaCliente, :nombreCliente, :apellidoCliente, :celularCliente, :direccionCliente, :nombreUsuario, :claveCuenta )", Boolean.class);
+        query.setParameter("cedulaCliente", cedulaCliente);
+        query.setParameter("nombreCliente", nombreCliente);
+        query.setParameter("apellidoCliente", apellidoCliente);
+        query.setParameter("celularCliente", celularCliente);
+        query.setParameter("direccionCliente", direccionCliente);
+        query.setParameter("nombreUsuario", nombreUsuario);
+        query.setParameter("claveCuenta", claveCuenta);
+
         return (Boolean) query.getSingleResult();
     }
 }
