@@ -79,4 +79,12 @@ public class UserService {
 
         return (Boolean) query.getSingleResult();
     }
+
+    public boolean crearCuenta (String tipoCuenta, Integer montoInicial, String cedulaCliente) {
+        Query query = entityManager.createNativeQuery("SELECT generar_cuenta(:tipoCuenta ,:montoInicial ,:cedulaCliente)", Boolean.class);
+        query.setParameter("cedulaCliente", cedulaCliente);
+        query.setParameter("tipoCuenta", tipoCuenta);
+        query.setParameter("montoInicial", montoInicial);
+        return (Boolean) query.getSingleResult();
+    }
 }

@@ -44,7 +44,9 @@ public class UserController {
         String esValido= userService.validarTrabajadorClave(nombreUsuario, claveCuenta);
 
         if (esValido.equals("cajero")){
-            return ResponseEntity.ok("Valido");
+            return ResponseEntity.ok("cajero");
+        }else if(esValido.equals("administrador")){
+            return ResponseEntity.ok("administrador");
         }else{
             return ResponseEntity.status(401).body("No es valido");
         }
@@ -90,6 +92,22 @@ public class UserController {
         String claveCliente = request.getClaveCliente();
 
         boolean esValido = userService.crearCliente(cedulaClientes,nombresCliente, apellidosCliente, celularCliente, direccionCliente, nombreUsuario, claveCliente);
+
+        if(esValido){
+            return ResponseEntity.ok("Agregado");
+        }
+        else{
+            return ResponseEntity.status(401).body("No ha sido agregado");
+        }
+    }
+
+    @PostMapping("/crearcuenta")
+    public ResponseEntity<String> crearCuenta(@RequestBody CreateAccount request){
+        String cedulaCliente= request.getCedulaCliente();
+        String tipoCuenta = request.getTipoCuenta();
+        Integer montoInicial = request.getMontoInicial();
+
+        boolean esValido = userService.crearCuenta(tipoCuenta, montoInicial, cedulaCliente);
 
         if(esValido){
             return ResponseEntity.ok("Agregado");
