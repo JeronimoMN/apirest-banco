@@ -3,6 +3,7 @@ package com.api.apirestbanco.service;
 import com.api.apirestbanco.model.UserAccount;
 import com.api.apirestbanco.model.UserModel;
 import com.api.apirestbanco.model.UserTypeAccount;
+import com.api.apirestbanco.model.UsuarioModel;
 import com.api.apirestbanco.repositorie.IUserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -41,8 +41,6 @@ public class UserService {
         query.setParameter("claveCuenta", claveCuenta);
         return (String) query.getSingleResult();
     }
-
-
 
     public List<UserAccount> getUserAccounts(String nombreUsuario){
         Query query = entityManager.createNativeQuery("SELECT * FROM obtener_cuentas_saldo(:nombreUsuario)");
@@ -86,5 +84,11 @@ public class UserService {
         query.setParameter("tipoCuenta", tipoCuenta);
         query.setParameter("montoInicial", montoInicial);
         return (Boolean) query.getSingleResult();
+    }
+
+    public ArrayList<UsuarioModel> getUsersBank(){
+        Query query = entityManager.createNativeQuery("SELECT * FROM obtener_usuarios()");
+        ArrayList<UsuarioModel> result= (ArrayList<UsuarioModel>) query.getResultList();
+        return result;
     }
 }

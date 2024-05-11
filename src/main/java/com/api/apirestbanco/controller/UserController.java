@@ -116,4 +116,11 @@ public class UserController {
             return ResponseEntity.status(401).body("No ha sido agregado");
         }
     }
+
+
+    @GetMapping("/getuserbanck")
+    public ArrayList<UsuarioModel> getUsarios(){
+        return this.userService.getUsersBank();
+    }
+
 }
