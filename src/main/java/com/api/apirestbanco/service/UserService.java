@@ -1,9 +1,6 @@
 package com.api.apirestbanco.service;
 
-import com.api.apirestbanco.model.UserAccount;
-import com.api.apirestbanco.model.UserModel;
-import com.api.apirestbanco.model.UserTypeAccount;
-import com.api.apirestbanco.model.UsuarioModel;
+import com.api.apirestbanco.model.*;
 import com.api.apirestbanco.repositorie.IUserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -90,5 +87,11 @@ public class UserService {
         Query query = entityManager.createNativeQuery("SELECT * FROM obtener_usuarios()");
         ArrayList<UsuarioModel> result= (ArrayList<UsuarioModel>) query.getResultList();
         return result;
+    }
+
+    public String getDinamicPass(String nombreUsuario){
+        Query query = entityManager.createNativeQuery("SELECT obtener_clave_dinamica(:nombreUsuario)");
+        query.setParameter("nombreUsuario", nombreUsuario);
+        return (String) query.getSingleResult();
     }
 }

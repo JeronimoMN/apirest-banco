@@ -3,6 +3,7 @@ package com.api.apirestbanco.controller;
 import com.api.apirestbanco.model.*;
 import com.api.apirestbanco.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -121,6 +122,13 @@ public class UserController {
     @GetMapping("/getuserbanck")
     public ArrayList<UsuarioModel> getUsarios(){
         return this.userService.getUsersBank();
+    }
+
+    @PostMapping("/getdinamicpass")
+    public String obtenerClaveDinamica(@RequestBody UserName request){
+        String nombreUsuario= request.getNombreUsuario();
+        String account= userService.getDinamicPass(nombreUsuario);
+        return account;
     }
 
 }
