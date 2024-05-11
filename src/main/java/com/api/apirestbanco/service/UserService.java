@@ -94,4 +94,11 @@ public class UserService {
         query.setParameter("nombreUsuario", nombreUsuario);
         return (String) query.getSingleResult();
     }
+
+    public Boolean cambiarEstadoUsuario(String cedula, String tipo_usuario, String estado){
+        Query query = entityManager.createNativeQuery("SELECT actualizar_estado(:cedula ,:tipo_usuario ,:estado)", Boolean.class);
+        query.setParameter("cedula", cedula);
+        query.setParameter("tipo_usuario", tipo_usuario);
+        query.setParameter("estado", estado);
+        return (Boolean) query.getSingleResult();    }
 }

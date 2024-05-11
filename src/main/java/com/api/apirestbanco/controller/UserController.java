@@ -131,4 +131,20 @@ public class UserController {
         return account;
     }
 
+    @PostMapping("/cambiarestado")
+    public ResponseEntity<String> cambiarEstado(@RequestBody EstadoUsuario request){
+        String cedula= request.getCedula();
+        String estado= request.getEstado();
+        String tipo_usuario = request.getTipo_usuario();
+
+        boolean esValido = userService.cambiarEstadoUsuario(cedula, tipo_usuario, estado);
+
+        if(esValido){
+            return ResponseEntity.ok("Estado de Cuenta Cambiado");
+        }
+        else{
+            return ResponseEntity.status(401).body("No ha sido cambiado");
+        }
+    }
+
 }
