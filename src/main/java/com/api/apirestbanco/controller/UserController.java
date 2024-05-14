@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -145,6 +146,14 @@ public class UserController {
         else{
             return ResponseEntity.status(401).body("No ha sido cambiado");
         }
+    }
+
+    @PostMapping("/getusermoves")
+    public ArrayList<UserMoves> getMoves(@RequestBody UserDateMoves request){
+        String cuenta= request.getCuenta();
+        Date fechaInicio= request.getFechaInicio();
+        Date fechaFin = request.getFechaFin();
+        return this.userService.getUserMoves(cuenta, fechaInicio, fechaFin);
     }
 
 }

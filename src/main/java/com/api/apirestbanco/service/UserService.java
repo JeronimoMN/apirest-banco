@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -101,4 +102,13 @@ public class UserService {
         query.setParameter("tipo_usuario", tipo_usuario);
         query.setParameter("estado", estado);
         return (Boolean) query.getSingleResult();    }
+
+    public ArrayList<UserMoves> getUserMoves(String cuenta, Date fecha_inicio, Date fecha_fin){
+        Query query = entityManager.createNativeQuery("SELECT * FROM obtener_movimientos(:cuenta, :fecha_inicio, :fecha_fin)");
+        query.setParameter("cuenta", cuenta);
+        query.setParameter("fecha_inicio", fecha_inicio);
+        query.setParameter("fecha_fin", fecha_fin);
+
+        return (ArrayList<UserMoves>) query.getResultList();
+    }
 }
