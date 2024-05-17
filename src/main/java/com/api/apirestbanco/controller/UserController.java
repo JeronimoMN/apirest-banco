@@ -23,6 +23,16 @@ public class UserController {
         return this.userService.getUser();
     }
 
+    @GetMapping("/getlogstrans")
+    public ArrayList<LogTransaccionesModel> getTransacciones(){
+        return this.userService.getLogTransacciones();
+    }
+
+    @GetMapping("/getlogsaccess")
+    public ArrayList<LogAccessModel> getAccess(){
+        return this.userService.getLogAccesos();
+    }
+
     @PostMapping("/validarUsuarioClave")
     public ResponseEntity<String> validarUsuarioClave(@RequestBody UserRequest request){
         String nombreUsuario= request.getNombreUsuario();

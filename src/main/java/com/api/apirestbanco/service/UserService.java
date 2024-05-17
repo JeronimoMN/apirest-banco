@@ -1,11 +1,14 @@
 package com.api.apirestbanco.service;
 
 import com.api.apirestbanco.model.*;
+import com.api.apirestbanco.repositorie.ILogAccessRepository;
+import com.api.apirestbanco.repositorie.ILogTransaccionRepository;
 import com.api.apirestbanco.repositorie.IUserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,6 +20,10 @@ public class UserService {
 
     @Autowired
     IUserRepository userRepository;
+    @Autowired
+    ILogTransaccionRepository logTransaccionRepository;
+    @Autowired
+    ILogAccessRepository logAccessRepository;
 
     public ArrayList<UserModel> getUser(){
         return (ArrayList<UserModel>) userRepository.findAll();
@@ -111,4 +118,16 @@ public class UserService {
 
         return (ArrayList<UserMoves>) query.getResultList();
     }
+
+    @Scheduled(fixedRate = 30000)
+    public void updateDynamicKey(){
+        Query query = entityManager.createNativeQuery("SELECT actualizar_claves_dinamicas()");
+        query.getSingleResult();
+        System.out.println("Dynamic key updated");
+    }
+
+    public ArrayList<LogTransaccionesModel> getLogTransacciones(){return (ArrayList<LogTransaccionesModel>) logTransaccionRepository.findAll();}
+
+    public ArrayList<LogAccessModel> getLogAccesos(){return (ArrayList<LogAccessModel>) logAccessRepository.findAll();}
+
 }
