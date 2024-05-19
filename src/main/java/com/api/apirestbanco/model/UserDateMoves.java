@@ -20,15 +20,15 @@ public class UserDateMoves {
         this.fechaInicio = fechaInicio;
     }
 
-    public Date getFechaFin() {
-        return fechaFin;
+    public Date getFechaFinal() {
+        return fechaFinal;
     }
 
-    public void setFechaFin(Date fechaFin) {
-        this.fechaFin = fechaFin;
+    public void setFechaFinal(Date fechaFin) {
+        this.fechaFinal = fechaFin;
     }
 
     private String cuenta;
     private Date fechaInicio;
-    private Date fechaFin;
+    private Date fechaFinal;
 }

@@ -110,15 +110,14 @@ public class UserService {
         query.setParameter("estado", estado);
         return (Boolean) query.getSingleResult();    }
 
-    public ArrayList<UserMoves> getUserMoves(String cuenta, Date fecha_inicio, Date fecha_fin){
-        Query query = entityManager.createNativeQuery("SELECT * FROM obtener_movimientos(:cuenta, :fecha_inicio, :fecha_fin)");
+    public ArrayList<UserMoves> getUserMoves(String cuenta, Date fecha_inicio, Date fecha_final){
+        Query query = entityManager.createNativeQuery("SELECT * FROM obtener_movimientos(:cuenta, :fecha_inicio, :fecha_final)");
         query.setParameter("cuenta", cuenta);
         query.setParameter("fecha_inicio", fecha_inicio);
-        query.setParameter("fecha_fin", fecha_fin);
+        query.setParameter("fecha_final", fecha_final);
 
         return (ArrayList<UserMoves>) query.getResultList();
     }
-
     @Scheduled(fixedRate = 30000)
     public void updateDynamicKey(){
         Query query = entityManager.createNativeQuery("SELECT actualizar_claves_dinamicas()");
@@ -128,6 +127,5 @@ public class UserService {
 
     public ArrayList<LogTransaccionesModel> getLogTransacciones(){return (ArrayList<LogTransaccionesModel>) logTransaccionRepository.findAll();}
 
-    public ArrayList<LogAccessModel> getLogAccesos(){return (ArrayList<LogAccessModel>) logAccessRepository.findAll();}
-
+    public ArrayList<LogAccessModel> getLogAccess(){return (ArrayList<LogAccessModel>) logAccessRepository.findAll();}
 }

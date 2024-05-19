@@ -29,9 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/getlogsaccess")
-    public ArrayList<LogAccessModel> getAccess(){
-        return this.userService.getLogAccesos();
-    }
+    public ArrayList<LogAccessModel> getAccesos(){return this.userService.getLogAccess();}
 
     @PostMapping("/validarUsuarioClave")
     public ResponseEntity<String> validarUsuarioClave(@RequestBody UserRequest request){
@@ -162,8 +160,7 @@ public class UserController {
     public ArrayList<UserMoves> getMoves(@RequestBody UserDateMoves request){
         String cuenta= request.getCuenta();
         Date fechaInicio= request.getFechaInicio();
-        Date fechaFin = request.getFechaFin();
-        return this.userService.getUserMoves(cuenta, fechaInicio, fechaFin);
+        Date fechaFinal = request.getFechaFinal();
+        return this.userService.getUserMoves(cuenta, fechaInicio, fechaFinal);
     }
-
 }
